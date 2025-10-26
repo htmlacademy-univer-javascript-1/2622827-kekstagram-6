@@ -21,6 +21,7 @@ const renderPictures = (objects) => {
   objects.forEach((item) => {
     fragment.appendChild(renderPhoto(item));
   } );
+  pictures.appendChild(fragment);
 };
 
 renderPictures(createPhotos);
