@@ -1,9 +1,7 @@
-import { createPhotos } from './data.js';
-
 const pictures =  document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const renderPhoto = (picture) => {
+const renderPicture = (picture) => {
   const {url, likes, comments, description} = picture;
   const pictureElement = pictureTemplate.cloneNode(true);
 
@@ -15,13 +13,12 @@ const renderPhoto = (picture) => {
   return pictureElement;
 };
 
-const fragment = document.createDocumentFragment();
-
 const renderPictures = (objects) => {
-  objects.forEach((item) => {
-    fragment.appendChild(renderPhoto(item));
-  } );
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < objects.length; i++){
+    fragment.appendChild(renderPicture(objects[i]));
+  }
   pictures.appendChild(fragment);
 };
 
-renderPictures(createPhotos);
+export {renderPictures};

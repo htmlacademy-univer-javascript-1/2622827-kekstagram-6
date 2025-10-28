@@ -1,6 +1,14 @@
-import {getRandomArrayElement, createUniqueRandomGenerator, getRandomInteger} from './util.js';
-
 const PHOTOS_COUNT = 25;
+
+const DESCRIPTIONS = [
+  'Прекрасный вечер',
+  'Любимое фото',
+  'Летнее приключение',
+  'Вечер с друзьями',
+  'Приключения ждут',
+  'Летний пейзаж',
+  'Хорошее настроение'
+];
 
 const COMMENT_MESSAGES = [
   'Всё отлично!',
@@ -22,52 +30,4 @@ const LIKES = {
   MAX: 200
 };
 
-let commentIdCounter = 1;
-
-const generateComment = () => {
-  const messageCount = getRandomInteger(1, 2);
-  let message = '';
-  for (let i = 0; i < messageCount; i++) {
-    if (i > 0) {message += ' ';}
-    message += getRandomArrayElement(COMMENT_MESSAGES);
-  }
-
-  return {
-    id: commentIdCounter++,
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: message,
-    name: getRandomArrayElement(NAMES),
-  };
-};
-
-const generateComments = () => {
-  const commentsCount = getRandomInteger(0, 30);
-  const comments = [];
-  for (let i = 0; i < commentsCount; i++) {
-    comments.push(generateComment());
-  }
-  return comments;
-};
-
-const generatePhoto = () => {
-  const id = createUniqueRandomGenerator(1,25);
-  return {
-    id: id,
-    url: `photos/${id}.jpg`,
-    description: `Это фотография номер ${id}`,
-    likes: getRandomInteger(LIKES.MIN, LIKES.MAX),
-    comments: generateComments(),
-  };
-};
-
-const generatePhotos = () => {
-  const photos = [];
-  for (let i = 1; i <= PHOTOS_COUNT; i++) {
-    photos.push(generatePhoto(i));
-  }
-  return photos;
-};
-
-const createPhotos = () => Array.from({length: PHOTOS_COUNT}, generatePhotos);
-
-export {createPhotos};
+export {PHOTOS_COUNT, COMMENT_MESSAGES, NAMES, LIKES, DESCRIPTIONS};
