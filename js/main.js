@@ -1,3 +1,6 @@
-import {createPhotos} from './util.js';
+import { getPhotosArray } from './photos.js';
+import { renderPictures } from './render-pictures.js';
 
-createPhotos();
+const photos = getPhotosArray();
+
+renderPictures(photos);
