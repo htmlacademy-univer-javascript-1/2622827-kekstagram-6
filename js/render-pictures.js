@@ -1,4 +1,4 @@
-import { openBigPicture } from './big-picture.js';
+import { showBidPicture } from './big-picture.js';
 const pictures =  document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -13,7 +13,7 @@ const renderPicture = (picture) => {
 
   pictureElement.addEventListener('click', (evt) => {
     evt.preventDefault();
-    openBigPicture(picture);
+    showBidPicture(picture);
   });
   return pictureElement;
 };
