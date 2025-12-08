@@ -5,6 +5,8 @@ import {
   getHashtagErrorMessage,
   getCommentErrorMessage
 } from './hashtags-pristine.js';
+import { resetEffects } from './effects.js';
+import { resetScale } from './scale.js';
 
 // Элементы формы
 const formUpload = document.querySelector('.img-upload__form');
@@ -78,6 +80,8 @@ const closeForm = () => {
 
   formUpload.reset();
   fileInput.value = '';
+  resetEffects();
+  resetScale();
   resetValidation();
   updateSubmitButtonState();
 };
