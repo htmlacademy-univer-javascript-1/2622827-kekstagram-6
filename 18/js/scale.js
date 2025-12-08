@@ -29,10 +29,26 @@ const onBigger = () => {
   setScale(value);
 };
 
+// Прямое изменение значения инпута масштаба
+const onScaleInputChange = () => {
+  let value = parseInt(scaleValue.value, 10);
+
+  if (Number.isNaN(value)) {
+    value = DEFAULT_SCALE;
+  }
+
+  value = Math.min(MAX_SCALE, Math.max(MIN_SCALE, value));
+  setScale(value);
+};
+
 // Инициализация
 export const initScale = () => {
   setScale(DEFAULT_SCALE);
 
   smallerBtn.addEventListener('click', onSmaller);
   biggerBtn.addEventListener('click', onBigger);
+  scaleValue.addEventListener('input', onScaleInputChange);
 };
+
+// Сброс масштаба к значению по умолчанию
+export const resetScale = () => setScale(DEFAULT_SCALE);

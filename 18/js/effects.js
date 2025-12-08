@@ -78,25 +78,20 @@ sliderElement.noUiSlider.on('update', (values) => {
 });
 
 // -----------------------------
-// Переключение эффекта
+// Применение выбранного эффекта
 // -----------------------------
-effectsList.addEventListener('change', (evt) => {
-  if (!evt.target.classList.contains('effects__radio')) {return;}
-
-  currentEffect = evt.target.value;
+const applyEffect = (effectName) => {
+  currentEffect = effectName;
 
   const effect = EFFECT_SETTINGS[currentEffect];
 
-  // Обновляем параметры слайдера
   sliderElement.noUiSlider.updateOptions({
     range: effect.range,
     start: effect.start,
     step: effect.step
   });
+  sliderElement.noUiSlider.set(effect.start);
 
-  sliderValue.value = effect.start;
-
-  // Для none скрываем слайдер
   if (currentEffect === 'none') {
     effectLevel.classList.add('hidden');
     previewImg.style.filter = '';
@@ -104,13 +99,27 @@ effectsList.addEventListener('change', (evt) => {
     effectLevel.classList.remove('hidden');
     previewImg.style.filter = effect.filter(effect.start);
   }
+};
+
+// -----------------------------
+// Переключение эффекта
+// -----------------------------
+effectsList.addEventListener('change', (evt) => {
+  if (!evt.target.classList.contains('effects__radio')) {return;}
+
+  applyEffect(evt.target.value);
 });
 
 // -----------------------------
 // Инициализация эффектов
 // -----------------------------
 export const initEffects = () => {
-  currentEffect = 'none';
-  effectLevel.classList.add('hidden');
-  previewImg.style.filter = '';
+  applyEffect('none');
+};
+
+// -----------------------------
+// Сброс эффектов к значению по умолчанию
+// -----------------------------
+export const resetEffects = () => {
+  applyEffect('none');
 };
