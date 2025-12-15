@@ -1,14 +1,16 @@
-import { getPhotosArray } from './photos.js';
+import { loadData } from './fetch.js';
 import { renderPictures } from './render-pictures.js';
 import './form.js'; // Управление формой
-import { initEffects } from './effects.js';
-import { initScale } from './scale.js';
 
-const photos = getPhotosArray();
 
-renderPictures(photos);
-initEffects();
-
-document.addEventListener('DOMContentLoaded', () => {
-  initScale();
-});
+// Загрузка миниатюр
+loadData(
+  (data) => {
+    renderPictures(data.slice());
+  },
+  () => {
+    // Показываем ошибку через универсальный модуль сообщений
+    const event = new CustomEvent('showError');
+    document.body.dispatchEvent(event);
+  }
+);
