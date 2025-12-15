@@ -39,6 +39,8 @@ const initValidation = () => {
     errorTextClass: 'img-upload__error-text',
   });
 
+  pristine = new Pristine(formUpload, { /* config */ });
+
   pristine.addValidator(hashtagsInput, validateHashtags, getHashtagErrorMessage, 2, false);
   pristine.addValidator(descriptionInput, validateComment, getCommentErrorMessage, 1, false);
 };
