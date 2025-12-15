@@ -1,15 +1,11 @@
 import { loadData } from './fetch.js';
 import { renderPictures } from './render-pictures.js';
 import './form.js'; // Управление формой
-import { initEffects } from './effects.js';
-import { initScale } from './scale.js';
 
-let photos = [];
 
 // Загрузка миниатюр
 loadData(
   (data) => {
-    photos = data.slice();
     renderPictures(data.slice());
   },
   () => {
@@ -18,8 +14,3 @@ loadData(
     document.body.dispatchEvent(event);
   }
 );
-
-initEffects();
-document.addEventListener('DOMContentLoaded', () => {
-  initScale();
-});

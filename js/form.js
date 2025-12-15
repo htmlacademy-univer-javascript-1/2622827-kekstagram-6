@@ -5,9 +5,12 @@ import {
   getHashtagErrorMessage,
   getCommentErrorMessage
 } from './hashtags-pristine.js';
-import { resetEffects } from './effects.js';
-import { resetScale } from './scale.js';
+import { resetEffects, initEffects} from './effects.js';
+import { resetScale, initScale} from './scale.js';
 import { uploadData } from './fetch.js';
+
+initEffects();
+initScale();
 
 // --------------------
 // DOM элементы формы
