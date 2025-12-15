@@ -43,8 +43,12 @@ const initValidation = () => {
   pristine.addValidator(descriptionInput, validateComment, getCommentErrorMessage, 1, false);
 };
 
-const validateForm = () => pristine.validate();
-const resetValidation = () => pristine.reset();
+const validateForm = () => pristine ? pristine.validate() : true;
+const resetValidation = () => {
+  if (pristine) {
+    pristine.reset();
+  }
+};
 
 // --------------------
 // Открытие / закрытие формы
