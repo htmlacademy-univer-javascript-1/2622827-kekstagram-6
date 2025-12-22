@@ -180,4 +180,4 @@ const initForm = () => {
 
 initForm();
 
-export { initForm, openForm, closeForm, validateForm, resetValidation };
+export { initForm, openForm, closeForm, validateForm, resetValidation, showErrorMessage};
