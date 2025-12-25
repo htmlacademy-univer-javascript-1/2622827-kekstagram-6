@@ -1,4 +1,4 @@
-import { isEscapeKey, numDecline } from './util.js';
+import { isEscapeKey} from './util.js';
 
 const COMMENTS_STEP = 5;
 
@@ -12,8 +12,9 @@ const likesCount = bigPicture.querySelector('.likes-count');
 const socialComments = bigPicture.querySelector('.social__comments');
 const pictureCaption = bigPicture.querySelector('.social__caption');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
-const socialCommentsCount = bigPicture.querySelector('.social__comment-count');
 const loadButton = bigPicture.querySelector('.comments-loader');
+const commentsShownCount = bigPicture.querySelector('.social__comment-shown-count');
+const commentsTotalCount = bigPicture.querySelector('.social__comment-total-count');
 
 let commentsCount = COMMENTS_STEP;
 let currentComments = [];
@@ -51,23 +52,25 @@ const createComment = (comment) => {
 
 const renderComments = () => {
   socialComments.innerHTML = '';
-  commentsCount = (commentsCount > currentComments.length) ? currentComments.length : commentsCount;
 
-  socialCommentsCount.innerHTML = `${commentsCount} из <span class="comments-count">${currentComments.length}</span> ${numDecline(commentsCount, ['комментарий', 'комментария', 'комментариев'])}`;
+  const shownCount = Math.min(commentsCount, currentComments.length);
+
+  commentsShownCount.textContent = shownCount;
+  commentsTotalCount.textContent = currentComments.length;
 
   const fragment = document.createDocumentFragment();
 
-  for (let i = 0; i < commentsCount; i++){
+  for (let i = 0; i < shownCount; i++) {
     fragment.appendChild(createComment(currentComments[i]));
   }
 
-  if (currentComments.length <= COMMENTS_STEP || commentsCount >= currentComments.length){
+  socialComments.appendChild(fragment);
+
+  if (shownCount >= currentComments.length) {
     loadButton.classList.add('hidden');
   } else {
     loadButton.classList.remove('hidden');
   }
-
-  socialComments.appendChild(fragment);
 };
 
 const show = (picture) => {
