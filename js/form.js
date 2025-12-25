@@ -11,6 +11,7 @@ import { uploadData } from './fetch.js';
 
 initEffects();
 initScale();
+const DEFAULT_IMAGE = 'img/upload-default-image.jpg';
 
 // --------------------
 // DOM элементы формы
@@ -22,6 +23,8 @@ const cancelButton = document.querySelector('#upload-cancel');
 const submitButton = formUpload.querySelector('#upload-submit');
 const hashtagsInput = formUpload.querySelector('.text__hashtags');
 const descriptionInput = formUpload.querySelector('.text__description');
+const previewImage = document.querySelector('.img-upload__preview img');
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 // --------------------
 // Pristine
@@ -38,8 +41,6 @@ const initValidation = () => {
     errorTextTag: 'div',
     errorTextClass: 'img-upload__error-text',
   });
-
-  pristine = new Pristine(formUpload, { /* config */ });
 
   pristine.addValidator(hashtagsInput, validateHashtags, getHashtagErrorMessage, 2, false);
   pristine.addValidator(descriptionInput, validateComment, getCommentErrorMessage, 1, false);
@@ -66,6 +67,8 @@ const closeForm = () => {
 
   formUpload.reset();
   fileInput.value = '';
+  previewImage.src = DEFAULT_IMAGE;
+
   resetEffects();
   resetScale();
   resetValidation();
@@ -169,7 +172,23 @@ const initForm = () => {
 
   initValidation();
 
-  fileInput.addEventListener('change', openForm);
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file) {
+      return;
+    }
+
+    const fileName = file.name.toLowerCase();
+    const matches = FILE_TYPES.some((ext) => fileName.endsWith(ext));
+
+    if (!matches) {
+      return;
+    }
+
+    previewImage.src = URL.createObjectURL(file);
+    openForm();
+  });
+
   cancelButton.addEventListener('click', closeForm);
   formUpload.addEventListener('submit', onFormSubmit);
 
