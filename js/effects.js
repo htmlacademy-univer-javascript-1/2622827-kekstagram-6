@@ -65,7 +65,7 @@ noUiSlider.create(sliderElement, {
 // Обновление фильтра по движению слайдера
 // -----------------------------
 sliderElement.noUiSlider.on('update', (values) => {
-  const value = values[0];
+  const value = parseFloat(values[0]);
   sliderValue.value = value;
 
   if (currentEffect === 'none') {
@@ -91,6 +91,7 @@ const applyEffect = (effectName) => {
     step: effect.step
   });
   sliderElement.noUiSlider.set(effect.start);
+  sliderValue.value = effect.start;
 
   if (currentEffect === 'none') {
     effectLevel.classList.add('hidden');

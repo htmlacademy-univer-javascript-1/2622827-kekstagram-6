@@ -8,7 +8,6 @@ const smallerBtn = document.querySelector('.scale__control--smaller');
 const biggerBtn = document.querySelector('.scale__control--bigger');
 const previewImg = document.querySelector('.img-upload__preview img');
 
-
 // Установка масштаба
 const setScale = (value) => {
   scaleValue.value = `${value}%`;
@@ -17,28 +16,16 @@ const setScale = (value) => {
 
 // Уменьшение
 const onSmaller = () => {
-  let value = parseInt(scaleValue.value, 10);
-  value = Math.max(MIN_SCALE, value - STEP_SCALE);
-  setScale(value);
+  const value = parseInt(scaleValue.value, 10);
+  const newValue = Math.max(MIN_SCALE, value - STEP_SCALE);
+  setScale(newValue);
 };
 
 // Увеличение
 const onBigger = () => {
-  let value = parseInt(scaleValue.value, 10);
-  value = Math.min(MAX_SCALE, value + STEP_SCALE);
-  setScale(value);
-};
-
-// Прямое изменение значения инпута масштаба
-const onScaleInputChange = () => {
-  let value = parseInt(scaleValue.value, 10);
-
-  if (Number.isNaN(value)) {
-    value = DEFAULT_SCALE;
-  }
-
-  value = Math.min(MAX_SCALE, Math.max(MIN_SCALE, value));
-  setScale(value);
+  const value = parseInt(scaleValue.value, 10);
+  const newValue = Math.min(MAX_SCALE, value + STEP_SCALE);
+  setScale(newValue);
 };
 
 // Инициализация
@@ -47,8 +34,9 @@ export const initScale = () => {
 
   smallerBtn.addEventListener('click', onSmaller);
   biggerBtn.addEventListener('click', onBigger);
-  scaleValue.addEventListener('input', onScaleInputChange);
 };
 
-// Сброс масштаба к значению по умолчанию
-export const resetScale = () => setScale(DEFAULT_SCALE);
+// Сброс масштаба
+export const resetScale = () => {
+  setScale(DEFAULT_SCALE);
+};

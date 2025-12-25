@@ -11,10 +11,8 @@ function validateHashtags(value) {
 
   if (text.length === 0) {return true;}
 
-  // Разбиваем по пробелам корректно — убираем пустые строки
   const tags = text.split(/\s+/).filter(Boolean);
 
-  // Набор правил в ТВОЁМ формате
   const rules = [
     {
       check: tags.some((item) => item === '#'),
@@ -33,7 +31,6 @@ function validateHashtags(value) {
       error: `Максимальная длина хэш-тега — ${MAX_SYMBOLS} символов (включая #)`,
     },
     {
-      // Правильный регекс — это то, что чаще всего ломалось у тебя
       check: tags.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
       error: 'Хэш-тег содержит недопустимые символы',
     },
@@ -47,7 +44,6 @@ function validateHashtags(value) {
     },
   ];
 
-  // Проверяем правила
   for (const rule of rules) {
     if (rule.check) {
       lastHashtagError = rule.error;
@@ -62,12 +58,13 @@ function getHashtagErrorMessage() {
   return lastHashtagError || '';
 }
 
-/** Валидация комментария */
 function validateComment(value) {
   lastCommentError = '';
-  const text = value || '';
+  const text = (value || '').trim();
 
-  if (text.length <= 140) {return true;}
+  if (text.length <= 140) {
+    return true;
+  }
 
   lastCommentError = 'Максимальная длина комментария 140 символов';
   return false;
