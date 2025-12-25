@@ -1,5 +1,5 @@
 import { renderPictures } from './render-pictures.js';
-import { debounce, throttle } from './util.js';
+import { debounce } from './util.js';
 
 const FILTER_COUNT = 10;
 const DEBOUNCE_DELAY = 500;
@@ -42,28 +42,27 @@ const applyFilter = (filterId) => {
 // Debounce
 const debouncedApplyFilter = debounce(applyFilter, DEBOUNCE_DELAY);
 
-// Обработчик клика по кнопкам фильтров
+// Обработчик клика
 const onFilterClick = (evt) => {
-  if (!evt.target.matches('.img-filters__button')) {return;}
+  if (!evt.target.classList.contains('img-filters__button')) {
+    return;
+  }
 
   const activeButton = filtersContainer.querySelector('.img-filters__button--active');
-  if (activeButton) {activeButton.classList.remove('img-filters__button--active');}
+  if (activeButton) {
+    activeButton.classList.remove('img-filters__button--active');
+  }
 
   evt.target.classList.add('img-filters__button--active');
 
   debouncedApplyFilter(evt.target.id);
 };
 
-// Throttle
-const throttledOnFilterClick = throttle(onFilterClick, DEBOUNCE_DELAY);
-
 // Инициализация
 const initFilters = (loadedPhotos) => {
-  if (!loadedPhotos || loadedPhotos.length === 0) {return;}
-
   photos = loadedPhotos.slice();
-  imgFilters.classList.remove('img-filters--inactive'); // показываем блок фильтров
-  filtersContainer.addEventListener('click', throttledOnFilterClick);
+  imgFilters.classList.remove('img-filters--inactive');
+  filtersContainer.addEventListener('click', onFilterClick);
 };
 
 export { initFilters };
