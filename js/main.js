@@ -1,16 +1,19 @@
 import { loadData } from './fetch.js';
 import { renderPictures } from './render-pictures.js';
-import './form.js'; // Управление формой
+import { initFilters } from './filters.js';
+import { showErrorMessage } from './form.js';
 
-
-// Загрузка миниатюр
+// Загружаем данные
 loadData(
-  (data) => {
-    renderPictures(data.slice());
+  (photos) => {
+    if (!photos || !Array.isArray(photos) || photos.length === 0) {return;}
+    renderPictures(photos);
+    initFilters(photos);
   },
-  () => {
-    // Показываем ошибку через универсальный модуль сообщений
-    const event = new CustomEvent('showError');
-    document.body.dispatchEvent(event);
+  (err) => {
+    // Показываем ошибку только если fetch реально не удался
+    if (err) {
+      showErrorMessage();
+    }
   }
 );
