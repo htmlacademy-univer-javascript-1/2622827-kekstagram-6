@@ -126,7 +126,7 @@ const showMessage = (templateId, messageClass, innerClass, buttonClass) => {
   const message = template.cloneNode(true);
   document.body.append(message);
 
-  const close = () => {
+  const onClose = () => {
     message.remove();
     document.removeEventListener('keydown', onEsc);
     window.removeEventListener('click', onOutsideClick);
@@ -135,19 +135,19 @@ const showMessage = (templateId, messageClass, innerClass, buttonClass) => {
   function onEsc (evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
-      close();
+      onClose();
     }
   }
 
   function onOutsideClick(evt) {
     if (!evt.target.closest(innerClass)) {
-      close();
+      onClose();
     }
   }
 
   const button = message.querySelector(buttonClass);
   if (button) {
-    button.addEventListener('click', close);
+    button.addEventListener('click', onClose);
   }
 
   document.addEventListener('keydown', onEsc);
@@ -233,7 +233,11 @@ const initForm = () => {
     openForm();
   });
 
-  cancelButton.addEventListener('click', closeForm);
+  const onCancelButtonClick = () => {
+    closeForm();
+  };
+
+  cancelButton.addEventListener('click', onCancelButtonClick);
   formUpload.addEventListener('submit', onFormSubmit);
 };
 

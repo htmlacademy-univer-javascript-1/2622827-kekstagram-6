@@ -11,13 +11,13 @@
     "url": "https://github.com/htmlacademy-univer-javascript-1/2622827-kekstagram-6/issues"
   },
   "devDependencies": {
-    "browser-sync": "^2.29.3",
+    "browser-sync": "2.29.3",
     "eslint": "8.15.0",
     "eslint-config-htmlacademy": "5.1.2"
   },
   "license": "MIT",
   "dependencies": {
-    "nouislider": "^15.8.1"
+    "nouislider": "15.8.1"
   },
   "scripts": {
     "start": "browser-sync start --server --no-ui --files \"js/**/*.js\"",

@@ -6,8 +6,8 @@ const DEFAULT_SCALE = 100;
 // Ищем элементы внутри документа
 const modalElement = document.querySelector('.img-upload');
 const scaleValue = modalElement.querySelector('.scale__control--value');
-const smallerBtn = modalElement.querySelector('.scale__control--smaller');
-const biggerBtn = modalElement.querySelector('.scale__control--bigger');
+const smallerButton = modalElement.querySelector('.scale__control--smaller');
+const biggerButton = modalElement.querySelector('.scale__control--bigger');
 const previewImg = modalElement.querySelector('.img-upload__preview img');
 
 const setScale = (value) => {
@@ -32,8 +32,8 @@ const onBigger = () => {
 };
 
 export const initScale = () => {
-  smallerBtn.addEventListener('click', onSmaller);
-  biggerBtn.addEventListener('click', onBigger);
+  smallerButton.addEventListener('click', onSmaller);
+  biggerButton.addEventListener('click', onBigger);
 };
 
 export const resetScale = () => {

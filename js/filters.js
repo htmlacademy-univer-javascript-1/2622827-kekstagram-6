@@ -11,7 +11,7 @@ let photos = [];
 
 // Очистка старых миниатюр
 const clearPictures = () => {
-  document.querySelectorAll('.picture').forEach((el) => el.remove());
+  document.querySelectorAll('.picture').forEach((element) => element.remove());
 };
 
 // Фильтры
